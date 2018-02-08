@@ -1,0 +1,12 @@
+{%extends 'blog/base.html'%}
+
+{%block content%}
+	<h1>add your comment</h1>
+	<form method="POST" name=add_comment>{%csrf_token%}
+
+		{{form.as_p}}
+		<button type="submit">Submit</button>
+		
+	</form>
+	
+{%endblock%}

@@ -1,0 +1,13 @@
+{%extends  'accounts/base.html'%}
+
+{%block content%}
+	<div class="col-sm-6 col-sm-offset-3">
+		<h1>{{title}}</h1>
+		<br>
+		<form method="POST" action="" enctype="multipart/form-data">{%csrf_token%}
+			{{form.as_p}}
+			<button type="submit" class="login btn btn-default">Login</button>
+		</form>
+		
+	</div>
+{%endblock%}

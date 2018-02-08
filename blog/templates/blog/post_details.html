@@ -1,0 +1,41 @@
+{%extends 'blog/base.html'%}
+
+{%block content%}
+	<div class="post">
+		{%if post.published_date%}
+			<div class="date">
+				{{post.published_date}}
+			</div>
+		{%endif%}
+
+		{%if user.is_authenticated%}
+			<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+		{%endif%}
+		
+		<h1>{{post.title}}</h1>
+		<br>
+		<img src="{{ post.image.url }}" class="img-responsive">
+		<br>
+		<p>{{post.text|linebreaksbr}}</p>
+
+
+		<hr>
+
+		
+	
+		<a href="{% url 'add_comment' post.pk %}"><h3>Leave a comment</h3></a>
+		<p>Number of total comments {{post.comments.count}}</p>
+		<br>
+		<br>
+		{%for comment in post.comments.all %}
+			<p>Created: {{comment.created}}</p>
+			<p>Commented by:<b>{{comment.user}}</b></p>
+			<p>Comment: {{comment.body}}</p>
+			<br>
+
+			{% empty %}
+				<p>There is no comment</p>
+		{%endfor%}
+</div>
+{%endblock%}
+		

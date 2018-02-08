@@ -1,0 +1,40 @@
+
+{%extends 'blog\base.html'%}
+{% load static %}
+
+{%block content%}
+<h1>Posts</h1>
+<br>
+<form method="GET" class="search">
+	<input type="text" name="q" placeholder="Search here" class="search_box">
+	<button type="submit" class="search_btn">Search</button>
+</form>
+{% for post in posts %}
+    <div class="post">
+        <div class="date">
+            {{ post.published_date }}
+        </div>
+        <h1><a href="{%url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+        <br>
+        <img src="{{ post.image.url }}" class="img-responsive">
+        <br>
+        <p>{{ post.text|linebreaksbr }}</p>
+        <hr>
+    </div>
+{% endfor %}
+<div class="pagination">
+    <span class="step-links">
+        {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}&{%if request.GET.q%}q={{request.GET.q}}{%endif%}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}& {%if request.GET.q%}q={{request.GET.q}}{%endif%}">next</a>
+        {% endif %}
+    </span>
+</div>
+{%endblock%}
